@@ -1,10 +1,18 @@
 # config.py — Spacez Review Action Agent configuration
 import os
+from dotenv import load_dotenv
+
+load_dotenv()  # loads .env file from project root
 
 # ---------------------------------------------------------------------------
 # Groq LLM settings
 # ---------------------------------------------------------------------------
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")  # set via env var or .streamlit/secrets.toml
+try:
+    import streamlit as st
+    GROQ_API_KEY = st.secrets.get("GROQ_API_KEY", os.environ.get("GROQ_API_KEY", ""))
+except Exception:
+    GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
+
 GROQ_MODEL = "llama-3.3-70b-versatile"   # fallback: llama-3.1-8b-instant
 GROQ_TIMEOUT = 30  # seconds per API call
 
