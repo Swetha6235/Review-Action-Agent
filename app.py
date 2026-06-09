@@ -664,7 +664,7 @@ def main():
             issue   = html_lib.escape(fmt_issue(row["primary_issue"]))
             owner   = html_lib.escape(str(row["owner_bucket"]))
             raw_act = str(row.get("llm_recommended_next_step") or row.get("recommended_action", ""))
-            action  = html_lib.escape(raw_act[:120] + ("…" if len(raw_act) > 120 else ""))
+            action  = html_lib.escape(raw_act)
             color   = rank_colors[i]
             label   = rank_labels[i]
             col.markdown(
